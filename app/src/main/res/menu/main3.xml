@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android"
+       xmlns:app="http://schemas.android.com/apk/res-auto"
+       xmlns:tools="http://schemas.android.com/tools" >
+    <item
+        android:id="@+id/x1_item"
+        android:title ="1X"
+        app:showAsAction="never"/>
+  <item
+    android:id="@+id/x10_item"
+    android:title="10X"
+    app:showAsAction="never"/>
+    <item
+        android:id="@+id/x100_item"
+        android:title="100X"
+        app:showAsAction="never"/>
+ </menu>

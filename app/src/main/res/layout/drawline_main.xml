@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:background="@android:color/darker_gray"
+    android:orientation="vertical"
+    android:paddingLeft="10dp"
+    android:paddingRight="10dp"
+    android:paddingTop="5dp">
+
+    <RelativeLayout
+        android:layout_width="match_parent"
+        android:layout_height="0dp"
+        android:layout_weight="1">
+
+        <com.xianjitong.administrator.osc.view.EcgView
+            android:id="@+id/myView"
+            android:layout_width="match_parent"
+            android:layout_height="match_parent" />
+    </RelativeLayout>
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_marginTop="10dp"
+        android:layout_gravity="bottom|left"
+        android:orientation="horizontal">
+
+        <TextView
+            android:layout_width="wrap_content"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom|left"
+            android:layout_alignParentBottom="true"
+            android:text="横坐标单位：ms,纵坐标单位：cm"
+            android:textColor="@android:color/holo_red_light"
+            android:textSize="12dp" />
+
+        <Button
+            android:id="@+id/ch1"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_marginLeft="20dp"
+            android:layout_gravity="bottom"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/textview_border"
+            android:text="CH1" />
+
+        <Button
+            android:id="@+id/ch2"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom|right"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/textview_border"
+            android:text="CH2" />
+
+        <Button
+            android:id="@+id/mu"
+            android:layout_width="60dp"
+            android:layout_height="25dp"
+            android:layout_gravity="bottom|center"
+            android:layout_alignParentBottom="true"
+            android:background="@drawable/textview_border"
+            android:text="菜单" />
+    </LinearLayout>
+</LinearLayout>

@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="horizontal"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:gravity="bottom"
+    android:id="@+id/pop_layout"
+    android:weightSum="1">
+
+
+    <Button
+        android:text="MEASURE"
+        android:layout_width="118dp"
+        android:layout_height="80dp"
+        android:background="@drawable/textview_border"
+        android:id="@+id/measure"
+        android:layout_weight="1.50" />
+
+    <Button
+        android:text="ACQUIRE"
+        android:layout_width="118dp"
+        android:layout_height="80dp"
+        android:background="@drawable/textview_border"
+        android:id="@+id/acquire" />
+
+    <Button
+        android:text="CH"
+        android:layout_width="118dp"
+        android:layout_height="80dp"
+        android:background="@drawable/textview_border"
+        android:id="@+id/ch" />
+
+    <Button
+        android:text="MATH"
+        android:layout_width="118dp"
+        android:layout_height="80dp"
+        android:background="@drawable/textview_border"
+        android:id="@+id/math" />
+
+    <Button
+        android:text="MENU"
+        android:layout_width="118dp"
+        android:layout_height="80dp"
+        android:background="@drawable/textview_border"
+        android:id="@+id/menu" />
+
+</LinearLayout>

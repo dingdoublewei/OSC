@@ -1,0 +1,119 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:orientation="vertical"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:id="@+id/secondlayout">
+
+    <TextView
+        android:text=""
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:id="@+id/Receive_ET" />
+
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right|center_vertical">
+        <TextView
+            android:id="@+id/coupling_TV"
+            android:text="耦  合"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/current_bt"
+            android:layout_width="87dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_border"
+            android:text="交  流"
+            android:layout_below="@id/coupling_TV" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right|center_vertical">
+        <TextView
+            android:id="@+id/restrainBand_TV"
+            android:text="带宽抑制"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/restrainBand_bt"
+            android:layout_width="87dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_border"
+            android:text="关"
+            android:layout_below="@id/restrainBand_TV" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right|center_vertical">
+        <TextView
+            android:id="@+id/size_TV"
+            android:text="伏/格"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/adapt_bt"
+            android:layout_width="87dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_border"
+            android:text="粗  调"
+            android:layout_below="@id/size_TV" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right|center_vertical">
+        <TextView
+            android:id="@+id/probe_TV"
+            android:text="探  头"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/probeselect_bt"
+            android:layout_width="87dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_border"
+            android:text="1X"
+            android:layout_below="@id/probe_TV" />
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:layout_gravity="right|center_vertical">
+        <TextView
+            android:id="@+id/reverse_TV"
+            android:text="反  向"
+            android:layout_width="87dp"
+            android:layout_height="18dp"
+            android:background="@android:color/holo_blue_bright"
+            android:gravity="center"/>
+
+        <Button
+            android:id="@+id/reverseselecet_bt"
+            android:layout_width="87dp"
+            android:layout_height="40dp"
+            android:background="@drawable/textview_border"
+            android:text="关"
+            android:layout_below="@id/reverse_TV" />
+    </LinearLayout>
+</LinearLayout>
