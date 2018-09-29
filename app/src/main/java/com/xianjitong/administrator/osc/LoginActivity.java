@@ -27,6 +27,10 @@ public class LoginActivity extends MainActivity {
     private final float DS_VOLTAGE = 3.3f;
     private final float DS_MULTIPLE = 0.0275f;
     private final float averageValue = 24968;
+    //接收数据线程
+    private Receive_Thread receive_thread;
+    //接收数据线程是否开启
+    private boolean isStart = false;
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
@@ -34,8 +38,7 @@ public class LoginActivity extends MainActivity {
         setContentView(R.layout.drawline_main);
 
         //当登陆界面的登陆按钮登陆以后，启动连接线程
-        Receive_Thread receive_Thread = new Receive_Thread();
-//        receive_Thread.start();
+        receive_thread = new Receive_Thread();
 
         // 获取各个控件
         CH1Button = (Button) findViewById(R.id.ch1);//获得主界面CH1按钮对象
@@ -57,17 +60,38 @@ public class LoginActivity extends MainActivity {
      * 以整数形式返回实际读取的字节数
      */
     class Receive_Thread extends Thread {
-        public void run()//重写run方法
-        {
+        @Override
+        public void run() {
+            // 测试代码
+            InputStream is = null;
             try {
-                while (true) {
-                    final byte[] buffer = new byte[1024];//创建接收缓冲区
-                    final int len;
-                    inputStream = socket.getInputStream();
-                    len = inputStream.read(buffer);//数据读出来，并且返回数据的长度
+                //从本地文件获取数据
+//                is = getAssets().open("text.txt");
+                //从socket中获取流数据
+                is = socket.getInputStream();
+                int length = 1024 * 4;
+                byte[] buffer = new byte[length];
+                while (is.read() != -1) {
+                    is.read(buffer);
+                    String result = new String(buffer, "utf8").replaceAll(" ", "");
+                    String[] reads = result.split(",");
+                    for (String readBean : reads) {  // Float.parseFloat(readBean)
+                        Log.d("readBean.length() =", readBean.length() + "");
+                        if (readBean.length() == 16) {
+                            int readHeight = Integer.parseInt(readBean.substring(0, 8), 2);
+                            int readLow = Integer.parseInt(readBean.substring(8, 16), 2);
+                            float finalResult = (readHeight << 8) | readLow;
+                            Log.d("finalResult =", finalResult + " 1");
+                            finalResult = (((finalResult - averageValue) / SUM_QUANTITY * DS_VOLTAGE) / DS_MULTIPLE);
+                            Log.d("finalResult =", finalResult + " 2");
+                            EcgView.addEcgData0(finalResult);
+                        }
+                    }
+                    buffer = new byte[length];
+                    sensorScopeDisplay.startThread();
                 }
+                is.close();
             } catch (IOException e) {
-                // TODO Auto-generated catch block
                 e.printStackTrace();
             }
         }
@@ -77,47 +101,39 @@ public class LoginActivity extends MainActivity {
      * 点击CH1按钮时所执行的动作
      */
     private View.OnClickListener CH1Button_Listener = new View.OnClickListener() {
+        //        @Override
 //        public void onClick(View v) {
+//            // 测试代码
+//            InputStream is = null;
 //            try {
-//                //获取输出流
-//                outputStream = socket.getOutputStream();
-//                //发送数据
-//                outputStream.write("CH1Button_Openning".getBytes());
-//                sensorScopeDisplay.setTag(true);//按下发送命令的同时，开始绘图
-//                //outputStream.write(MsgEditText.getText().toString().getBytes());
-//                Toast.makeText(LoginActivity.this, "已发送打开耦合通道命令", Toast.LENGTH_SHORT).show();
-//
-//            } catch (Exception e) {
-//                // TODO Auto-generated catch block
+//                //从本地文件获取数据
+////                is = getAssets().open("text.txt");
+//                //从socket中获取流数据
+//                is = socket.getInputStream();
+//                int length = is.available();
+//                byte[] buffer = new byte[length];
+//                is.read(buffer);
+//                String result = new String(buffer, "utf8").replaceAll(" ", "");
+//                String[] reads = result.split(",");
+//                for (String readBean : reads) {  // Float.parseFloat(readBean)
+//                    int readHigt = Integer.parseInt(readBean.substring(0, 8), 2);
+//                    int readlow = Integer.parseInt(readBean.substring(8, 16), 2);
+//                    float readdd = (readHigt << 8) | readlow;
+//                    Log.d("readdd =", readdd + " 1");
+//                    readdd = (((readdd - averageValue) / SUM_QUANTITY * DS_VOLTAGE) / DS_MULTIPLE);
+//                    Log.d("readdd =", readdd + " 2");
+//                    EcgView.addEcgData0(readdd);
+//                }
+//                sensorScopeDisplay.startThread();
+//            } catch (IOException e) {
 //                e.printStackTrace();
 //            }
 //        }
-
-
         @Override
         public void onClick(View v) {
-            // 测试代码
-            InputStream is = null;
-            try {
-//                is = getAssets().open("text.txt");
-                is = socket.getInputStream();
-                int length = is.available();
-                byte[] buffer = new byte[length];
-                is.read(buffer);
-                String result = new String(buffer, "utf8").replaceAll(" ", "");
-                String[] reads = result.split(",");
-                for (String readBean : reads) {  // Float.parseFloat(readBean)
-                    int readHigt = Integer.parseInt(readBean.substring(0, 8), 2);
-                    int readlow = Integer.parseInt(readBean.substring(8, 16), 2);
-                    float readdd = (readHigt << 8) | readlow;
-                    Log.d("readdd =", readdd + " 1");
-                    readdd = (((readdd - averageValue) / SUM_QUANTITY * DS_VOLTAGE) / DS_MULTIPLE);
-                    Log.d("readdd =", readdd + " 2");
-                    EcgView.addEcgData0(readdd);
-                }
-                sensorScopeDisplay.startThread();
-            } catch (IOException e) {
-                e.printStackTrace();
+            if (!isStart && receive_thread != null) {
+                isStart = true;
+                receive_thread.start();
             }
         }
     };
@@ -146,6 +162,15 @@ public class LoginActivity extends MainActivity {
         }
     };
 
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        if (!receive_thread.isInterrupted()) {
+            receive_thread.interrupt();
+            receive_thread = null;
+            isStart = false;
+        }
+    }
 }
 
 

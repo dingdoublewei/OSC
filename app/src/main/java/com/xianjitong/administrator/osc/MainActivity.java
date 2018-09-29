@@ -4,14 +4,6 @@ package com.xianjitong.administrator.osc;
  * Created by Administrator on 2018/3/28.
  */
 
-import java.io.InputStream;
-import java.io.OutputStream;
-import java.net.InetAddress;
-import java.net.Socket;
-
-
-import android.R.integer;
-import android.R.string;
 import android.app.Activity;
 import android.app.AlertDialog;
 import android.app.AlertDialog.Builder;
@@ -23,14 +15,17 @@ import android.preference.PreferenceManager;
 import android.telephony.TelephonyManager;
 import android.util.Log;
 import android.view.KeyEvent;
-import android.view.Menu;
-import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
 import android.widget.Button;
 import android.widget.CheckBox;
 import android.widget.EditText;
 import android.widget.Toast;
+
+import java.io.InputStream;
+import java.net.InetAddress;
+import java.net.Socket;
+
 
 public class MainActivity extends Activity {
 
@@ -85,6 +80,7 @@ public class MainActivity extends Activity {
          * 为完全退出应用程序而加的代码
          */
         ExitApplication.getInstance().addActivity(this);
+
     }
 
     /**
@@ -94,6 +90,9 @@ public class MainActivity extends Activity {
 
         @Override
         public void onClick(View v) {
+            Intent intent = new Intent();
+            intent.setAction("what");
+            sendBroadcast(intent);
             // TODO Auto-generated method stub
             Toast.makeText(MainActivity.this, "请把" + imei + "提供给管理员", Toast.LENGTH_LONG).show();
         }
@@ -119,8 +118,7 @@ public class MainActivity extends Activity {
         public void run()//重写run方法
         {
             try {
-                if (true)
-                {
+                if (true) {
                     //用InetAddress方法获取ip地址
                     InetAddress ipAddress = InetAddress.getByName(NearIpEditText.getText().toString());
                     int port = Integer.valueOf(PortText.getText().toString());//获取端口号

@@ -167,11 +167,13 @@ public class EcgView extends SurfaceView implements SurfaceHolder.Callback {
     }
 
     public void startThread() {
-        isRunning = true;
         RunThread = new Thread(drawRunnable);
         // 每次开始清空画布，重新画
         ClearDraw();
-        RunThread.start();
+        if (!isRunning) {
+            isRunning = true;
+            RunThread.start();
+        }
     }
 
     public void stopThread() {
@@ -219,7 +221,7 @@ public class EcgView extends SurfaceView implements SurfaceHolder.Callback {
         drawWave0();
         //如果已经成功开始绘制波形
         if (isInto) {
-            //计算下一次波形绘制的其实x坐标
+            //计算下一次波形绘制的起始x坐标
             startX = (float) (startX + ecgXOffset * ecgPerCount);
         }
         //波形位置超出手机屏幕宽度，重新从0开始
