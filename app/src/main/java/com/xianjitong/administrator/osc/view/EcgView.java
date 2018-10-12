@@ -42,7 +42,7 @@ public class EcgView extends SurfaceView implements SurfaceHolder.Callback {
     private int wave_speed = 25;//波速: 125mm/s   250
     private int sleepTime = 8; //每次锁屏的时间间距 8，单位:ms   8
     private float lockWidth;//每次锁屏需要画的像素值
-    private int ecgPerCount = 17;//每次画心电数据的个数，8  17
+    private int ecgPerCount = 8;//每次画心电数据的个数，8  17
     private static Queue<Float> ecg0Datas = new LinkedBlockingQueue<Float>();
     private Paint mPaint;//画波形图的画笔
     private int mWidth;//控件宽度
